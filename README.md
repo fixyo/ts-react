@@ -20,3 +20,6 @@ npm install eslint-config-prettier -D // solve the conflict between prettier and
     ]
   },
 ```
+
+规范 git commit msg
+npm install @commitlint/{config-conventional,cli} -D

@@ -10,6 +10,7 @@
     "@types/node": "^12.20.6",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
+    "qs": "^6.10.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
@@ -21,7 +22,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "json-server": "json-server __json_mock_server__/db.json --watch",
+    "json-server": "json-server __json_mock_server__/db.json --watch --port 3001",
+    "dev": "npm run json-server && npm start",
     "prepare": "husky install"
   },
   "eslintConfig": {
@@ -44,9 +46,15 @@
     ]
   },
   "devDependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
     "eslint-config-prettier": "^8.3.0",
+    "husky": "^6.0.0",
     "json-server": "^0.16.3",
     "lint-staged": "^11.0.0",
     "prettier": "^2.3.1"
+  },
+  "lint-staged": {
+    "*.{js,css,md,ts,tsx}": "prettier --write"
   }
 }
