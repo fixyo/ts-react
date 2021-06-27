@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-export const isFalsy = (value: any) => (value === 0 ? false : !value);
 
-export const omitFalsy = (object: object) => {
+export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
+
+export const omitFalsy = <T extends object, K extends keyof T>(object: T) => {
   const result = { ...object };
   Object.keys(result).forEach((key) => {
-    // @ts-ignore
-    const value = result[key];
+    const value = result[key as K];
     if (isFalsy(value)) {
-      // @ts-ignore
-      delete result[key];
+      delete result[key as K];
     }
   });
   return result;
@@ -21,7 +20,7 @@ export const useMount = (cb: () => void) => {
   }, []);
 };
 
-export const useDebounce = (value: any, delay?: number) => {
+export const useDebounce = <T>(value: T, delay?: number): T => {
   console.log("setDebounceValuezhix");
   const [debounceValue, setDebounceValue] = useState(value);
 
@@ -31,7 +30,6 @@ export const useDebounce = (value: any, delay?: number) => {
     }, delay);
     // 执行当前useEffect之前对上一个useEffect进行清除
     return () => {
-      console.log("clear timeout");
       clearTimeout(timer);
     };
   }, [value, delay]);

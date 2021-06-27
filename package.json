@@ -22,7 +22,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "json-server": "json-server __json_mock_server__/db.json --watch --port 3001",
+    "json-server": "json-server __json_mock_server__/db.json --watch --port 3001 --middlewares ./__json_mock_server__/middleware.js",
     "dev": "npm run json-server && npm start",
     "prepare": "husky install"
   },
@@ -57,5 +57,8 @@
   },
   "lint-staged": {
     "*.{js,css,md,ts,tsx}": "prettier --write"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
