@@ -14,7 +14,7 @@ export default memo(function Login() {
   };
 
   const login = (param: { username: string; password: string }) => {
-    fetch(`${baseUrl}/login`, {
+    fetch(`${baseUrl}/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export default memo(function Login() {
         <label htmlFor="password">password</label>
         <input type="password" id={"password"} />
       </div>
-      <button type="submit">登录</button>
+      <button type="submit">注册</button>
     </form>
   );
 });

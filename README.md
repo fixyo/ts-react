@@ -23,3 +23,8 @@ npm install eslint-config-prettier -D // solve the conflict between prettier and
 
 规范 git commit msg
 npm install @commitlint/{config-conventional,cli} -D
+
+-- gitbash 中 npm run xxx 不能使用
+'"node"' is not internal or external xxx
+使用以下命令可暂时解决
+set path=%PATH%; setx path “%PATH%”
