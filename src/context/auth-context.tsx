@@ -18,6 +18,7 @@ const AuthContext = createContext<
   | undefined
 >(undefined);
 
+// devtool
 AuthContext.displayName = "AuthContext";
 
 interface AuthForm {
@@ -51,4 +52,6 @@ export const useAuth = () => {
   if (!context) {
     throw new Error("useAuth must be used in AuthProvider");
   }
+
+  return context;
 };

@@ -1,10 +1,11 @@
-import React from "react";
-import ProjectList from "views/project-list";
-import Login from "views/login";
+import { useAuth } from "context/auth-context";
+import AuthorizedApp from "views/authorized-app";
+import UnauthorizedApp from "views/unauthorized-app";
+// import React from "react";
 
 function App() {
-  // return <ProjectList />;
-  return <Login />;
+  const { user } = useAuth();
+  return user ? <AuthorizedApp /> : <UnauthorizedApp />;
 }
 
 export default App;
