@@ -7,6 +7,8 @@ import React, {
 } from "react";
 import { User } from "views/project-list/search-pannel";
 import * as auth from "utils/auth-provider";
+import { request } from "utils/request";
+import { useMount } from "utils";
 
 const AuthContext = createContext<
   | {
@@ -26,6 +28,18 @@ interface AuthForm {
   password: string;
 }
 
+const bootStrapUser = async () => {
+  let user = null;
+  const token = auth.getToken();
+
+  if (token) {
+    const data = await request("/me", { token });
+    user = data.user;
+  }
+
+  return user;
+};
+
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const login = (form: AuthForm) => {
@@ -39,6 +53,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     auth.logOut().then(() => setUser(null));
   };
+  useMount(() => {
+    bootStrapUser().then(setUser);
+  });
   return (
     <AuthContext.Provider
       children={children}

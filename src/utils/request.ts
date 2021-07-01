@@ -1,4 +1,5 @@
 import qs from "qs";
+import { useAuth } from "context/auth-context";
 import * as auth from "utils/auth-provider";
 const baseUrl = process.env.REACT_APP_API_URL;
 
@@ -8,7 +9,7 @@ interface Config extends RequestInit {
 }
 export const request = (
   path: string,
-  { data, token, headers, ...others }: Config
+  { data, token, headers, ...others }: Config = {}
 ) => {
   const config = {
     method: "GET",
@@ -38,4 +39,10 @@ export const request = (
       return Promise.reject(data);
     }
   });
+};
+
+export const useRequest = () => {
+  const { user } = useAuth();
+  return (...[path, config]: Parameters<typeof request>) =>
+    request(path, { ...config, token: user?.token });
 };
