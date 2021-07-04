@@ -40,7 +40,9 @@ export const SearchPannel = ({ param, setParam, users }: IProps) => {
           })
         }
       >
-        <option value="">负责人</option>
+        <option value="" key="x">
+          负责人
+        </option>
         {users.map((user) => {
           return (
             <option value={user.id} key={user.id}>

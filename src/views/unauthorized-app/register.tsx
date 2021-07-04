@@ -1,45 +1,27 @@
 import React, { FormEvent, memo } from "react";
 import { useAuth } from "context/auth-context";
+import { Form, Input, Button } from "antd";
 
 // const baseUrl = process.env.REACT_APP_API_URL;
 
 export default memo(function Login() {
   const { register } = useAuth();
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const username = (e.currentTarget.elements[0] as HTMLInputElement).value;
-    const password = (e.currentTarget.elements[1] as HTMLInputElement).value;
-
-    // const debounceParams = useDebounce({username, password})
-
-    register({ username, password });
+  const handleSubmit = (values: { username: string; password: string }) => {
+    register(values);
   };
 
-  // const login = (param: { username: string; password: string }) => {
-  //   fetch(`${baseUrl}/login`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify(param)
-  //   }).then(async res => {
-  //     if (res.ok) {
-  //       await res.json()
-  //     }
-  //   })
-  // };
   return (
-    <form onSubmit={(e) => handleSubmit(e)}>
-      <div>
-        <label htmlFor="username">username</label>
-        <input type="text" id={"username"} />
-      </div>
-      <div>
-        <label htmlFor="password">password</label>
-        <input type="password" id={"password"} />
-      </div>
-      <button type="submit">注册</button>
-    </form>
+    <Form onFinish={(e) => handleSubmit(e)}>
+      <Form.Item name="username">
+        <Input type="text" id={"username"} placeholder="用户名" />
+      </Form.Item>
+      <Form.Item name="password">
+        <Input type="password" id={"password"} placeholder="密码" />
+      </Form.Item>
+      <Button htmlType="submit" type="primary">
+        注册
+      </Button>
+    </Form>
   );
 });

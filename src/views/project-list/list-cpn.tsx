@@ -1,5 +1,7 @@
 import React from "react";
 import { User } from "./search-pannel";
+import { Table } from "antd";
+
 interface IProject {
   id: number;
   name: string;
@@ -15,26 +17,18 @@ interface IProps {
 
 export const ListCpn = ({ list, users }: IProps) => {
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>name</th>
-          <th>responsible person</th>
-        </tr>
-      </thead>
-      <tbody>
-        {list.map((item) => {
-          return (
-            <tr key={item.id}>
-              <td>{item.name}</td>
-              <td>
-                {users.find((user) => user.id === item.personId)?.name ||
-                  "unknow"}
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
+    <Table
+      rowKey="id"
+      pagination={false}
+      columns={[
+        {
+          title: "名称",
+          dataIndex: "name",
+          key: "name",
+          sorter: (a, b) => a.name.localeCompare(b.name),
+        },
+      ]}
+      dataSource={list}
+    ></Table>
   );
 };

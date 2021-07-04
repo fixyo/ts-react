@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import qs from "qs";
+// import qs from "qs";
 import { useMount, useDebounce } from "utils";
 import { SearchPannel } from "./search-pannel";
 import { ListCpn } from "./list-cpn";
 import { omitFalsy } from "utils";
 import { useRequest } from "utils/request";
 
-const baseUrl = process.env.REACT_APP_API_URL;
+// const baseUrl = process.env.REACT_APP_API_URL;
 
 export default function ProjectList() {
   const [param, setParam] = useState({

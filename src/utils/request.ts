@@ -43,6 +43,7 @@ export const request = (
 
 export const useRequest = () => {
   const { user } = useAuth();
+  // 通过泛型，传入其他类型。utility type 对这种类型进行操作
   return (...[path, config]: Parameters<typeof request>) =>
     request(path, { ...config, token: user?.token });
 };
