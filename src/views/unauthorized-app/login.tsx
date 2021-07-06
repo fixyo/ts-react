@@ -1,9 +1,9 @@
-import React, { FormEvent, memo } from "react";
+import React, { memo } from "react";
 import { useAuth } from "context/auth-context";
-import { Form, Input, Button } from "antd";
-import { required } from "yargs";
+import { Form, Input } from "antd";
+import { LongButton } from ".";
 
-const baseUrl = process.env.REACT_APP_API_URL;
+// const baseUrl = process.env.REACT_APP_API_URL;
 
 export default memo(function Login() {
   const { login, user } = useAuth();
@@ -45,9 +45,9 @@ export default memo(function Login() {
         <Input type="password" id={"password"} placeholder="密码" />
       </Form.Item>
       <Form.Item>
-        <Button htmlType="submit" type="primary">
+        <LongButton htmlType="submit" type="primary">
           登录
-        </Button>
+        </LongButton>
       </Form.Item>
     </Form>
   );

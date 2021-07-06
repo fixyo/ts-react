@@ -1,6 +1,7 @@
 import React from "react";
 import { User } from "./search-pannel";
 import { Table } from "antd";
+import { spawn } from "node:child_process";
 
 interface IProject {
   id: number;
@@ -26,6 +27,17 @@ export const ListCpn = ({ list, users }: IProps) => {
           dataIndex: "name",
           key: "name",
           sorter: (a, b) => a.name.localeCompare(b.name),
+        },
+        {
+          title: "负责人",
+          key: "responsiblePerson",
+          render(value, project) {
+            return (
+              <span>
+                {users.find((user) => user.id === project.personId)?.name}
+              </span>
+            );
+          },
         },
       ]}
       dataSource={list}

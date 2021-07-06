@@ -1,4 +1,5 @@
 import React from "react";
+import { Form, Input, Select } from "antd";
 
 export interface User {
   id: number;
@@ -20,37 +21,39 @@ interface IProps {
 
 export const SearchPannel = ({ param, setParam, users }: IProps) => {
   return (
-    <form>
-      <input
-        type="text"
-        value={param.name}
-        onChange={(e) =>
-          setParam({
-            ...param,
-            name: e.target.value,
-          })
-        }
-      />
-      <select
+    <Form layout="inline">
+      <Form.Item>
+        <Input
+          type="text"
+          value={param.name}
+          onChange={(e) =>
+            setParam({
+              ...param,
+              name: e.target.value,
+            })
+          }
+        />
+      </Form.Item>
+      <Select
         value={param.personId}
-        onChange={(e) =>
+        onChange={(value) =>
           setParam({
             ...param,
-            personId: e.target.value,
+            personId: value,
           })
         }
       >
-        <option value="" key="x">
+        <Select.Option value="" key="x">
           负责人
-        </option>
+        </Select.Option>
         {users.map((user) => {
           return (
-            <option value={user.id} key={user.id}>
+            <Select.Option value={user.id} key={user.id}>
               {user.name}
-            </option>
+            </Select.Option>
           );
         })}
-      </select>
-    </form>
+      </Select>
+    </Form>
   );
 };
