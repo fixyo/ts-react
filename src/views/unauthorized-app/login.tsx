@@ -5,7 +5,11 @@ import { LongButton } from ".";
 
 // const baseUrl = process.env.REACT_APP_API_URL;
 
-export default memo(function Login() {
+export default memo(function Login({
+  onError,
+}: {
+  onError: (error: Error) => void;
+}) {
   const { login, user } = useAuth();
 
   console.log("user", user);
@@ -16,7 +20,7 @@ export default memo(function Login() {
 
     // const debounceParams = useDebounce({username, password})
 
-    login(values);
+    login(values).catch((error) => onError(error));
   };
   return (
     <Form onFinish={(e) => handleSubmit(e)}>

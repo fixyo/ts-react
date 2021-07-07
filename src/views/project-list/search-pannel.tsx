@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+// import { css } from "@emotion/react"
 import React from "react";
 import { Form, Input, Select } from "antd";
 
@@ -21,10 +23,11 @@ interface IProps {
 
 export const SearchPannel = ({ param, setParam, users }: IProps) => {
   return (
-    <Form layout="inline">
+    <Form css={{ marginBottom: "2rem", ">*": "" }} layout="inline">
       <Form.Item>
         <Input
           type="text"
+          placeholder="项目名称"
           value={param.name}
           onChange={(e) =>
             setParam({

@@ -1,13 +1,24 @@
 import { useEffect, useState } from "react";
 
 export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
-
-export const omitFalsy = <T extends object, K extends keyof T>(object: T) => {
+export const isVoid = (value: unknown) =>
+  value === undefined || value === null || value === "";
+// export const omitFalsy = <T extends object, K extends keyof T>(object: T) => {
+//   const result = { ...object };
+//   Object.keys(result).forEach((key) => {
+//     const value = result[key as K];
+//     if (isFalsy(value)) {
+//       delete result[key as K];
+//     }
+//   });
+//   return result;
+// };
+export const omitFalsy = (object: { [key: string]: unknown }) => {
   const result = { ...object };
   Object.keys(result).forEach((key) => {
-    const value = result[key as K];
-    if (isFalsy(value)) {
-      delete result[key as K];
+    const value = result;
+    if (isVoid(value)) {
+      delete result[key];
     }
   });
   return result;

@@ -1,10 +1,4 @@
-import React, {
-  memo,
-  createContext,
-  useState,
-  useContext,
-  ReactNode,
-} from "react";
+import React, { createContext, useState, useContext, ReactNode } from "react";
 import { User } from "views/project-list/search-pannel";
 import * as auth from "utils/auth-provider";
 import { request } from "utils/request";

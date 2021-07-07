@@ -3,12 +3,13 @@ import ReactDOM from "react-dom";
 import { AppProviders } from "context";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { loadDevTools } from "jira-dev-tool";
+import { loadServer, DevTools } from "jira-dev-tool";
 import "antd/dist/antd.less";
 
-loadDevTools(() =>
+loadServer(() =>
   ReactDOM.render(
     <AppProviders>
+      <DevTools />
       <App />
     </AppProviders>,
 

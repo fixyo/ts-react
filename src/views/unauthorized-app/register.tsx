@@ -5,11 +5,15 @@ import { LongButton } from "./index";
 
 // const baseUrl = process.env.REACT_APP_API_URL;
 
-export default memo(function Login() {
+export default memo(function Login({
+  onError,
+}: {
+  onError: (error: Error) => void;
+}) {
   const { register } = useAuth();
 
   const handleSubmit = (values: { username: string; password: string }) => {
-    register(values);
+    register(values).catch((error) => onError(error));
   };
 
   return (

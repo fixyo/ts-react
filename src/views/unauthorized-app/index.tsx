@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Login from "./login";
 import Register from "./register";
-import { Card, Divider, Button } from "antd";
+import { Card, Divider, Button, Typography } from "antd";
 import styled from "@emotion/styled";
 import logo from "assets/logo.svg";
 import left from "assets/left.svg";
@@ -9,17 +9,25 @@ import right from "assets/right.svg";
 
 const UnauthorizedApp = () => {
   const [isLoginPage, setIsLoginPage] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
   return (
     <Container>
       <Header />
       <Background />
       <ShadowCard>
         <Title>{isLoginPage ? "请登录" : "请注册"}</Title>
-        {isLoginPage ? <Login /> : <Register />}
+        {error ? (
+          <Typography.Text type="danger">{error.message}</Typography.Text>
+        ) : null}
+        {isLoginPage ? (
+          <Login onError={setError} />
+        ) : (
+          <Register onError={setError} />
+        )}
         <Divider />
-        <a onClick={(e) => setIsLoginPage(!isLoginPage)}>
+        <Button type="link" onClick={(e) => setIsLoginPage(!isLoginPage)}>
           切换{isLoginPage ? "注册" : "登录"}
-        </a>
+        </Button>
       </ShadowCard>
     </Container>
   );

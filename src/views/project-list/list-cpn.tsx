@@ -1,9 +1,9 @@
 import React from "react";
 import { User } from "./search-pannel";
-import { Table } from "antd";
-import { spawn } from "node:child_process";
+import { Table, TableProps } from "antd";
+import dayjs from "dayjs";
 
-interface IProject {
+export interface IProject {
   id: number;
   name: string;
   personId: number;
@@ -11,12 +11,11 @@ interface IProject {
   created: number;
 }
 
-interface IProps {
-  list: IProject[];
+interface IProps extends TableProps<IProject> {
   users: User[];
 }
 
-export const ListCpn = ({ list, users }: IProps) => {
+export const ListCpn = ({ users, ...props }: IProps) => {
   return (
     <Table
       rowKey="id"
@@ -29,6 +28,12 @@ export const ListCpn = ({ list, users }: IProps) => {
           sorter: (a, b) => a.name.localeCompare(b.name),
         },
         {
+          title: "部门",
+          dataIndex: "organization",
+          key: "organization",
+          // sorter: (a, b) => a.name.localeCompare(b.name),
+        },
+        {
           title: "负责人",
           key: "responsiblePerson",
           render(value, project) {
@@ -39,8 +44,22 @@ export const ListCpn = ({ list, users }: IProps) => {
             );
           },
         },
+        {
+          title: "创建时间",
+          dataIndex: "created",
+          key: "created",
+          render: (value, project) => {
+            return (
+              <span>
+                {project.created
+                  ? dayjs(project.created).format("YYYY-MM-DD")
+                  : "无"}
+              </span>
+            );
+          },
+        },
       ]}
-      dataSource={list}
+      {...props}
     ></Table>
   );
 };
