@@ -12,7 +12,18 @@ const defaultState: State<null> = {
   error: null,
 };
 
-export const useAsync = <T>(userState?: State<T>) => {
+const defaultConfig = {
+  throwError: false,
+};
+
+export const useAsync = <T>(
+  userState?: State<T>,
+  userConfig?: typeof defaultConfig
+) => {
+  const config = {
+    ...defaultConfig,
+    ...userConfig,
+  };
   const [state, setstate] = useState({
     ...defaultState,
     ...userState,
@@ -47,7 +58,11 @@ export const useAsync = <T>(userState?: State<T>) => {
         return data;
       })
       .catch((error) => {
+        // catch会消化异常，除非主动抛出，否则try catch接不到异常
         setError(error);
+        if (config.throwError) {
+          return Promise.reject(error);
+        }
         return error;
       });
   };

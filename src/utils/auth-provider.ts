@@ -22,7 +22,6 @@ export const login = (data: { username: string; password: string }) => {
       // setList(await res.json());
       return handleUserResponse(await res.json());
     } else {
-      console.log(data, "error");
       return Promise.reject(await res.json());
     }
   });

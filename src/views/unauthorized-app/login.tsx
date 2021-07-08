@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import { useAuth } from "context/auth-context";
 import { Form, Input } from "antd";
 import { LongButton } from ".";
+import { useAsync } from "utils/use-async";
 
 // const baseUrl = process.env.REACT_APP_API_URL;
 
@@ -12,15 +13,14 @@ export default memo(function Login({
 }) {
   const { login, user } = useAuth();
 
-  console.log("user", user);
+  const { isLoading, run } = useAsync(undefined, { throwError: true });
 
   const handleSubmit = (values: { username: string; password: string }) => {
     // const username = (e.currentTarget.elements[0] as HTMLInputElement).value;
     // const password = (e.currentTarget.elements[1] as HTMLInputElement).value;
 
     // const debounceParams = useDebounce({username, password})
-
-    login(values).catch((error) => onError(error));
+    run(login(values)).catch((error) => onError(error));
   };
   return (
     <Form onFinish={(e) => handleSubmit(e)}>
@@ -49,7 +49,7 @@ export default memo(function Login({
         <Input type="password" id={"password"} placeholder="密码" />
       </Form.Item>
       <Form.Item>
-        <LongButton htmlType="submit" type="primary">
+        <LongButton loading={isLoading} htmlType="submit" type="primary">
           登录
         </LongButton>
       </Form.Item>

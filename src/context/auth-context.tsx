@@ -3,6 +3,8 @@ import { User } from "views/project-list/search-pannel";
 import * as auth from "utils/auth-provider";
 import { request } from "utils/request";
 import { useMount } from "utils";
+import { useAsync } from "utils/use-async";
+import { FullpageLoading } from "components/lib";
 
 const AuthContext = createContext<
   | {
@@ -27,15 +29,26 @@ const bootStrapUser = async () => {
   const token = auth.getToken();
 
   if (token) {
-    const data = await request("/me", { token });
-    user = data.user;
+    try {
+      const data = await request("/me", { token });
+      user = data.user;
+    } catch (error) {
+      Promise.reject(error);
+    }
   }
 
   return user;
 };
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const {
+    data: user,
+    setData: setUser,
+    run,
+    isLoading,
+    isIdle,
+  } = useAsync<User | null>();
+  // const [user, setUser] = useState<User | null>(null);
   const login = (form: AuthForm) => {
     // user => setUser(user)
     // point free
@@ -48,8 +61,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     auth.logOut().then(() => setUser(null));
   };
   useMount(() => {
-    bootStrapUser().then(setUser);
+    run(bootStrapUser()).catch((error) => logout());
   });
+  if (isIdle || isLoading) {
+    return <FullpageLoading />;
+  }
   return (
     <AuthContext.Provider
       children={children}

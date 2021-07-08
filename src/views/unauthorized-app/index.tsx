@@ -65,6 +65,7 @@ const Background = styled.div`
 const Title = styled.h2`
   margin-bottom: 2.4rem;
   color: rgb(94, 108, 132);
+  text-align: center;
 `;
 const ShadowCard = styled(Card)`
   width: 40rem;
@@ -72,7 +73,7 @@ const ShadowCard = styled(Card)`
   padding: 3.2rem 4rem;
   border-radius: 0.3rem;
   box-shadow: rgba(0, 0, 0, 0.1) 0 0 10px;
-  text-align: center;
+  /* text-align: center; */
 `;
 
 export default UnauthorizedApp;
