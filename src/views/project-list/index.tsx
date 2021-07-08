@@ -40,8 +40,14 @@ export default function ProjectList() {
     userRun(request("/users"));
   });
 
+  const value: any = undefined;
+
   return (
     <Container>
+      {
+        // @tsignore
+        // value.doesNotExist
+      }
       <SearchPannel param={param} setParam={setParam} users={users || []} />
       <ListCpn
         loading={isLoading}
