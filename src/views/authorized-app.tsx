@@ -1,16 +1,24 @@
 import { useAuth } from "context/auth-context";
 import ProjectList from "./project-list";
+import Project from "./project";
 import styled from "@emotion/styled";
 import { Row } from "components/lib";
 import { ReactComponent as SoftwareLogo } from "assets/software-logo.svg";
 import { Dropdown, Menu, Button } from "antd";
+import { Navigate, Route, Routes } from "react-router";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const AuthorizedApp = () => {
   return (
     <Container>
       <PageHeader />
       <Main>
-        <ProjectList />
+        <Router>
+          <Routes>
+            <Route path={"/projects"} element={<ProjectList />} />
+            <Route path={"/projects/:projectId/*"} element={<Project />} />
+          </Routes>
+        </Router>
       </Main>
     </Container>
   );
