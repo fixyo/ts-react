@@ -8,17 +8,16 @@ import styled from "@emotion/styled";
 import { useAsync } from "utils/use-async";
 import { IProject } from "./list-cpn";
 import { User } from "./search-pannel";
-
-// const baseUrl = process.env.REACT_APP_API_URL;
+import { useUrlQueryParam } from "utils/url";
 
 export default function ProjectList() {
-  const [param, setParam] = useState({
+  const [, setParam] = useState({
     name: "",
     personId: "",
   });
-  // const [users, setUsers] = useState([]);
-  // const [list, setList] = useState([]);
 
+  // const value: any = undefined;
+  const [param] = useUrlQueryParam(["name", "personId"]);
   const debounceParams = useDebounce(param, 300);
   const { run, isLoading, data: list } = useAsync<IProject[]>();
   const { run: userRun, data: users } = useAsync<User[]>();
@@ -26,28 +25,14 @@ export default function ProjectList() {
 
   useEffect(() => {
     run(request("/projects", { data: omitFalsy(debounceParams) }));
-    // fetch(
-    //   `${baseUrl}/projects?${qs.stringify(omitFalsy(debounceParams))}`
-    // ).then(async (res) => {
-    //   if (res.ok) {
-    //     setList(await res.json());
-    //   }
-    // });
-    // eslint-disable-next-line
   }, [debounceParams]);
 
   useMount(() => {
     userRun(request("/users"));
   });
 
-  // const value: any = undefined;
-
   return (
     <Container>
-      {
-        // @tsignore
-        // value.doesNotExist
-      }
       <SearchPannel param={param} setParam={setParam} users={users || []} />
       <ListCpn
         loading={isLoading}
