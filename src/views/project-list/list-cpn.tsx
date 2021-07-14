@@ -3,6 +3,10 @@ import { User } from "./search-pannel";
 import { Table, TableProps } from "antd";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
+// 类似于react react-dom
+// react-router react-router-dom
+// routes route 从react-router中引入, 主要计算路由树的状态，将计算的状态给react-router-dom消费
+// router link等dom相关的从react-router-dom中引入
 
 export interface IProject {
   id: number;

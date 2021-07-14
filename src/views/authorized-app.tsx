@@ -7,6 +7,7 @@ import { ReactComponent as SoftwareLogo } from "assets/software-logo.svg";
 import { Dropdown, Menu, Button } from "antd";
 import { Navigate, Route, Routes } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
+import { resetRoute } from "utils";
 
 const AuthorizedApp = () => {
   return (
@@ -17,6 +18,7 @@ const AuthorizedApp = () => {
           <Routes>
             <Route path={"/projects"} element={<ProjectList />} />
             <Route path={"/projects/:projectId/*"} element={<Project />} />
+            <Navigate to={window.location.pathname + "/projects"}></Navigate>
           </Routes>
         </Router>
       </Main>
@@ -30,7 +32,9 @@ const PageHeader = () => {
     <Header justify={"space-between"}>
       <HeaderLeft gap={2}>
         {/* <img src={logo} alt="" /> */}
-        <SoftwareLogo width="18rem" color="rgb(38, 132, 255)" />
+        <Button type="link" onClick={resetRoute}>
+          <SoftwareLogo width="18rem" color="rgb(38, 132, 255)" />
+        </Button>
         <h2>user</h2>
         <h2>project</h2>
       </HeaderLeft>

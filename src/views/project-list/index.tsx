@@ -40,7 +40,7 @@ export default function ProjectList() {
     userRun(request("/users"));
   });
 
-  const value: any = undefined;
+  // const value: any = undefined;
 
   return (
     <Container>
