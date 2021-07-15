@@ -1,5 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import { useMemo } from "react";
+import { omitFalsy } from "utils";
+import { URLSearchParamsInit } from "react-router-dom";
 
 export const useUrlQueryParam = <K extends string>(keys: K[]) => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -10,7 +12,14 @@ export const useUrlQueryParam = <K extends string>(keys: K[]) => {
       }, {} as { [key in K]: string });
       // eslint-disable-next-line
     }, [searchParams]),
-    setSearchParams,
+    (params: { [key in K]: unknown }) => {
+      const o = omitFalsy({
+        ...Object.fromEntries(searchParams),
+        ...params,
+      }) as URLSearchParamsInit;
+      console.log(o, "o");
+      return setSearchParams(o);
+    },
   ] as const;
 };
 

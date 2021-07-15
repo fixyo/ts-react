@@ -16,7 +16,7 @@ export const isVoid = (value: unknown) =>
 export const omitFalsy = (object: { [key: string]: unknown }) => {
   const result = { ...object };
   Object.keys(result).forEach((key) => {
-    const value = result;
+    const value = result[key];
     if (isVoid(value)) {
       delete result[key];
     }
@@ -32,7 +32,6 @@ export const useMount = (cb: () => void) => {
 };
 
 export const useDebounce = <T>(value: T, delay?: number): T => {
-  console.log("setDebounceValuezhix");
   const [debounceValue, setDebounceValue] = useState(value);
 
   useEffect(() => {
