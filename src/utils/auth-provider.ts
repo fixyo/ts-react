@@ -1,6 +1,7 @@
 import { User } from "views/project-list/search-pannel";
 
-const baseUrl = process.env.REACT_APP_API_URL;
+// const baseUrl = process.env.REACT_APP_API_URL;
+const baseUrl = process.env.REACT_APP_BASE_URL;
 const localstorageKey = "__auth_provider_token__";
 
 export const getToken = () => localStorage.getItem(localstorageKey);
@@ -28,7 +29,7 @@ export const login = (data: { username: string; password: string }) => {
 };
 
 export const register = (data: { username: string; password: string }) => {
-  return fetch(`${baseUrl}/register`, {
+  return fetch(`${baseUrl}/user/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

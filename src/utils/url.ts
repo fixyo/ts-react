@@ -12,12 +12,11 @@ export const useUrlQueryParam = <K extends string>(keys: K[]) => {
       }, {} as { [key in K]: string });
       // eslint-disable-next-line
     }, [searchParams]),
-    (params: { [key in K]: unknown }) => {
+    (params: Partial<{ [key in K]: unknown }>) => {
       const o = omitFalsy({
         ...Object.fromEntries(searchParams),
         ...params,
       }) as URLSearchParamsInit;
-      console.log(o, "o");
       return setSearchParams(o);
     },
   ] as const;

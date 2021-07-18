@@ -3,18 +3,16 @@ import ReactDOM from "react-dom";
 import { AppProviders } from "context";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { loadServer, DevTools } from "jira-dev-tool";
+// import { loadServer, DevTools } from "jira-dev-tool";
 import "antd/dist/antd.less";
 
-loadServer(() =>
-  ReactDOM.render(
-    <AppProviders>
-      <DevTools />
-      <App />
-    </AppProviders>,
+ReactDOM.render(
+  <AppProviders>
+    {/* <DevTools /> */}
+    <App />
+  </AppProviders>,
 
-    document.getElementById("root")
-  )
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -2,6 +2,8 @@
 // import { css } from "@emotion/react"
 import React from "react";
 import { Form, Input, Select } from "antd";
+import { IProject } from "./list-cpn";
+import { UserSelector } from "components/user-select";
 
 export interface User {
   id: number;
@@ -14,10 +16,7 @@ export interface User {
 
 interface IProps {
   users: User[];
-  param: {
-    name: string;
-    personId: string;
-  };
+  param: Partial<Pick<IProject, "name" | "personId">>;
   setParam: (param: IProps["param"]) => void;
 }
 
@@ -37,7 +36,17 @@ export const SearchPannel = ({ param, setParam, users }: IProps) => {
           }
         />
       </Form.Item>
-      <Select
+      <UserSelector
+        defaultOptionName="负责人"
+        value={param.personId}
+        onChange={(value) =>
+          setParam({
+            ...param,
+            personId: value,
+          })
+        }
+      ></UserSelector>
+      {/* <Select
         value={param.personId}
         onChange={(value) =>
           setParam({
@@ -56,7 +65,7 @@ export const SearchPannel = ({ param, setParam, users }: IProps) => {
             </Select.Option>
           );
         })}
-      </Select>
+      </Select> */}
     </Form>
   );
 };

@@ -20,12 +20,16 @@ export default function ProjectList() {
   const [param, setParam] = useUrlQueryParam(["name", "personId"]);
   // setParam({name:'1'})
   const debounceParams = useDebounce(param, 300);
+  const projectParams = {
+    ...debounceParams,
+    personId: Number(debounceParams.personId) || undefined,
+  };
   const { run, isLoading, data: list } = useAsync<IProject[]>();
   const { run: userRun, data: users } = useAsync<User[]>();
   const request = useRequest();
 
   useEffect(() => {
-    run(request("/projects", { data: omitFalsy(debounceParams) }));
+    run(request("/projects", { data: omitFalsy(projectParams) }));
     // eslint-disable-next-line
   }, [debounceParams]);
 
@@ -35,7 +39,11 @@ export default function ProjectList() {
 
   return (
     <Container>
-      <SearchPannel param={param} setParam={setParam} users={users || []} />
+      <SearchPannel
+        param={projectParams}
+        setParam={setParam}
+        users={users || []}
+      />
       <ListCpn
         loading={isLoading}
         dataSource={list || []}
